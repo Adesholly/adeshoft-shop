@@ -1,51 +1,62 @@
 import React, { useState } from "react"
+import { UserIcon, ShoppingBagIcon, ShoppingCartIcon, MenuIcon, XIcon } from '@heroicons/react/solid'
 
 function Navbar() {
 
   const [openNavbar,  setOpenNavbar] = useState(false)
 
   return (
-    <div>
-      <nav className="relative flex flex-wrap items-center justify px-2 py-3 bg-blue-400 shadow-lg mb-4">
-        <div className="container px-4 mx-auto flex flex-wrap justify-between items-center">
-          <div className="w-full relative flex justify-between lg:w-auto lg-static lg:block lg:justify">
-            <a href="" className=" font-bold leading-relaxed inline-block mr-4 py-2 px-14 ">
+    <>
+      <nav className="bg-gray-600 shadow-lg mb-4">
 
-              <img src="" alt="" />
-              <span className="whitespace-nowrap uppercase text-white text-lg">Adeshoft Shop</span>
-            </a>
-            <button
-              className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outlinnone focus:outline-none"
-              type="button" onClick={() => setOpenNavbar(!openNavbar)}
+        <div className="sm:flex sm:justify-between items-center px-8 md:px-16 lg:px-32 py-2">
+
+
+          <div className="flex justify-between items-center">
+            <div>
+              <img src="/images/logo.svg" alt="Logo" className="h-12 md:h-14"  />
+      
+            </div>
+
+            <div className="sm:hidden">
+              <button
+                className="cursor-pointer text-xl leading-none border border-solid border-transparent rounded bg-transparent block outline-none focus:outline-none"
+                type="button" onClick={() => setOpenNavbar(!openNavbar)} >{
+                  !openNavbar ? (<MenuIcon  className="h-8 w-8 text-white"/>) : (   
+                    <XIcon className="h-8 w-8 text-white"/> )
+                }               
              
-            >
-              <div className="p-2 space-y-1.5 ">
-                <span className="block w-6 h-0.5 bg-gray-100"></span>
-                <span className="block w-8 h-0.5 bg-gray-100"></span>
-                <span className="block w-6 h-0.5 bg-gray-100 "></span>
-              </div>
-            </button>
-
+              </button>
+            </div>     
+        
           </div>
-          <div className={"lg:flex flex-grow items-center " + (openNavbar ? "flex" : "hidden")} id="myNavbar">
-          <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="nav-item text-white">
-                <a className="lg:px-3 px-14 py-2 flex items-center font-bold leading-snug hover:opacity-75" href="register">
+
+          <div className={openNavbar ? "block" : "hidden " + "sm:flex"}>
+            <ul className="px-4 py-2 sm:flex">
+
+                <li className="nav-item flex text-white hover:bg-gray-500 px-4 sm:px-2 rounded py-1">
+                
+                  <a className="font-semibold leading-snug " href="register">
                   Cart
-                </a>
-              </li>
-              <li className="nav-item text-white">
-                <a className="lg:px-3 px-14 py-2 flex items-center font-bold leading-snug hover:opacity-75" href="login">
+                  </a>
+                  <ShoppingCartIcon className="h-6 w-6 text-white"/>
+                </li>
+
+                <li className="nav-item flex text-white hover:bg-gray-500 px-4 py-1 rounded">
+                  <a className="font-bold leading-snug " href="login">
                   Signin
-                </a>
-              </li>
+                  </a>
+                  <UserIcon className="h-5 w-5 text-white"/>
+                </li>
             </ul>
           </div>
 
         </div>
+        
 
+      
       </nav>
-    </div>
+    </>
   )
 }
 

@@ -1,0 +1,13 @@
+import React from 'react'
+
+function Product() {
+  return (
+    <div className="">
+
+
+
+    </div>
+  )
+}
+
+export default Product
