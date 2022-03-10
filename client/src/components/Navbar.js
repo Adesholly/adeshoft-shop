@@ -9,7 +9,7 @@ function Navbar() {
     <>
       <nav className="bg-gray-600 shadow-lg mb-4">
 
-        <div className="sm:flex sm:justify-between items-center px-8 md:px-16 lg:px-32 py-2">
+        <div className="sm:flex sm:justify-between items-center px-16 lg:px-32 py-2">
 
 
           <div className="flex justify-between items-center">

@@ -4,7 +4,7 @@ import HomeScreen from "./screens/HomeScreen"
 
 function App() {
   return (
-    <div className='App'>
+    <div className='App antialiasing text-gray-700'>
      <Navbar />
      <main>
       <div className="">
