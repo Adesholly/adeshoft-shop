@@ -1,4 +1,6 @@
 import React from 'react'
+import Rating from './Rating'
+
 
 
 function Product({ product }) {
@@ -14,7 +16,8 @@ function Product({ product }) {
 
         <div className="font-bold leading-tight"> {product.name}
         </div>
-        <div className="mt-2"> {product.rating} ({product.numReviews} reviews)
+        <div className="mt-2"> 
+          <Rating value={product.rating} text={`(${product.numReviews} reviews)`}/>     
         </div>
         <div className="mt-2 font-semibold text-xl tracking-widest"> ${product.price} 
         </div>
