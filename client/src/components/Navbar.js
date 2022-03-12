@@ -1,5 +1,8 @@
 import React, { useState } from "react"
-import { UserIcon, ShoppingBagIcon, ShoppingCartIcon, MenuIcon, XIcon } from '@heroicons/react/solid'
+import { UserIcon, ShoppingCartIcon, MenuIcon, XIcon } from '@heroicons/react/solid'
+import { Link } from "react-router-dom"
+import products from "../products"
+
 
 function Navbar() {
 
@@ -14,7 +17,10 @@ function Navbar() {
 
           <div className="flex justify-between items-center">
             <div>
-              <img src="/images/logo.svg" alt="Logo" className="h-12 md:h-14"  />
+              <Link to='/'>
+                <img src="/images/logo.svg" alt="Logo" className="h-12 md:h-14"  />
+              </Link>
+              
       
             </div>
 
@@ -34,18 +40,17 @@ function Navbar() {
           <div className={openNavbar ? "block" : "hidden " + "sm:flex"}>
             <ul className="px-4 py-2 sm:flex">
 
-                <li className="nav-item flex text-white hover:bg-gray-500 px-4 sm:px-2 rounded py-1">
-                
-                  <a className="font-semibold leading-snug " href="register">
-                  Cart
-                  </a>
+                <li className="nav-item flex text-white hover:bg-gray-500 px-4 sm:px-2 rounded py-1 font-semibold leading-snug">
+                  <Link to="cart">
+                    Cart
+                  </Link>
                   <ShoppingCartIcon className="h-6 w-6 text-white"/>
                 </li>
 
-                <li className="nav-item flex text-white hover:bg-gray-500 px-4 py-1 rounded">
-                  <a className="font-bold leading-snug " href="login">
-                  Signin
-                  </a>
+                <li className="nav-item flex text-white hover:bg-gray-500 px-4 py-1 rounded font-bold leading-snug">
+                  <Link to="register">
+                    Signin
+                  </Link>     
                   <UserIcon className="h-5 w-5 text-white"/>
                 </li>
             </ul>

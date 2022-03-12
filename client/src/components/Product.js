@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Rating from './Rating'
 
 
@@ -7,9 +8,9 @@ function Product({ product }) {
   return (
     <div className="my-5 border shadow-lg rounded-md overflow-hidden">
       <div> 
-        <a href="">
-        <img className="object-cover"  src={product.image[0]} alt="" />
-        </a>
+        <Link to={`product/${product._id}`} >
+          <img className="object-cover"  src={product.image[0]} alt="" />
+        </Link>
       </div>
 
       <div className="p-6">
