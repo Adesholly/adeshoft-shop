@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import products from "../data/products"
 
 const reviewSchema = mongoose.Schema(
   {
@@ -29,7 +28,7 @@ const productSchema = mongoose.Schema(
       required: true,
     },
 
-    band: {
+    brand: {
       type: String,
       required: true,
     },
@@ -43,6 +42,8 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+
+    reviews: [reviewSchema],
 
     rating: {
       type: Number,
