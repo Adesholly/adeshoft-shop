@@ -1,0 +1,29 @@
+{
+  "name": "adeshoft-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adesholly/adeshoft-shop.git"
+  },
+  "type": "module",
+  "author": "Lateef Ibrahim (adesholly)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adesholly/adeshoft-shop/issues"
+  },
+  "homepage": "https://github.com/Adesholly/adeshoft-shop#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.6"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "nodemon": "^2.0.15"
+  }
+}
