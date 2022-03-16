@@ -6,13 +6,13 @@ function Product({ product }) {
   return (
     <div className='my-5 border shadow-lg rounded-md overflow-hidden'>
       <div>
-        <Link to={`product/${product._id}`}>
-          <img className='object-cover' src={product.image[0]} alt='' />
+        <Link to={`/${product._id}`}>
+          <img className='object-cover' src={product.image} alt='' />
         </Link>
       </div>
 
       <div className='p-6'>
-        <Link to={`product/${product._id}`}>
+        <Link to={`/${product._id}`}>
           <div className='font-bold leading-tight'> {product.name}</div>
         </Link>
         <div className='mt-2'>
@@ -22,7 +22,6 @@ function Product({ product }) {
           />
         </div>
         <div className='mt-2 font-semibold text-xl tracking-widest'>
-          {" "}
           ${product.price}
         </div>
       </div>

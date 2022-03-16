@@ -11,11 +11,9 @@ function ProductScreen() {
 
   useEffect(() => {
     async function fetchProduct() {
-      const { data } = await axios.get(`api/products/${Number(id)}`)
+      const { data } = await axios.get(`api/products/${id}`)
 
-      const formateData = JSON.parse(data)
-
-      setProduct(formateData)
+      setProduct(data)
     }
 
     fetchProduct()
@@ -31,14 +29,14 @@ function ProductScreen() {
         <div className='hidden lg:block'>
           <img
             className='aspect-[1/1.1] object-cover'
-            src={product.oneImage}
+            src={product.image}
             alt=''
           />
         </div>
 
         <div className='lg:grid lg:grid-row-6 lg:px-4'>
           <div className='lg:hidden'>
-            <img className='aspect-[1/0.8]' src={product.oneImage} alt='' />
+            <img className='aspect-[1/0.8]' src={product.image} alt='' />
           </div>
 
           <div className='flevbx items-center justify-between mt-2 mx-4 lg:'>
@@ -100,7 +98,5 @@ function ProductScreen() {
     </div>
   )
 }
-
-f
 
 export default ProductScreen
