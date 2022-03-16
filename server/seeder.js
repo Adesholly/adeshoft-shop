@@ -41,7 +41,7 @@ async function destroyData() {
     await Product.deleteMany()
     await User.deleteMany()
 
-    console.log("Data Destroy".red.inverse.bold)
+    console.log("Data Destroy!".red.inverse.bold)
     process.exit()
   } catch (error) {
     console.error(`${error}`.red.inverse.bold)
