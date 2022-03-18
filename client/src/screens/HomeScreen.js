@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 import Product from "../components/Product"
 import { useDispatch, useSelector } from "react-redux"
 import { listProducts } from "../actions/productActions"
+import Loader from "react-spinners/ClipLoader"
+import Error from "../components/Error"
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -15,16 +17,22 @@ function HomeScreen() {
 
   return (
     <>
-      <div className='px-16 lg:px-32 py-2 mt-8'>
-        <h1 className='text-xl uppercase font-semibold tracking-tight text-gray-600'>
-          Latest Products
-        </h1>
-        <div className='grid grid-grow-col sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8 '>
-          {products.map((product) => (
-            <Product product={product} key={product._id} />
-          ))}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Error>{error}</Error>
+      ) : (
+        <div className='px-16 lg:px-32 py-2 mt-8'>
+          <h1 className='text-xl uppercase font-semibold tracking-tight text-gray-600'>
+            Latest Products
+          </h1>
+          <div className='grid grid-grow-col sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8 '>
+            {products.map((product) => (
+              <Product product={product} key={product._id} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 }
