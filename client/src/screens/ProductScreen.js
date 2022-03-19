@@ -1,6 +1,6 @@
 import { ArrowCircleLeftIcon, ShoppingCartIcon } from "@heroicons/react/solid"
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { listProductDetail } from "../actions/productActions"
@@ -9,7 +9,9 @@ import Error from "../components/Error"
 import Loader from "react-spinners/ClipLoader"
 
 function ProductScreen() {
+  const [qty, setQty] = useState(1)
   const { id } = useParams()
+  const navigation = useNavigate()
   const dispatch = useDispatch()
   const productDetail = useSelector((state) => state.productDetail)
   const { loading, error, product } = productDetail
@@ -17,6 +19,10 @@ function ProductScreen() {
   useEffect(() => {
     dispatch(listProductDetail(id))
   }, [dispatch])
+
+  function addToCartHandler() {
+    navigation(`/cart/?${id}qty=${qty}`)
+  }
 
   return (
     <>
@@ -44,7 +50,7 @@ function ProductScreen() {
                 <img className='aspect-[1/0.8]' src={product.image} alt='' />
               </div>
 
-              <div className='flevbx items-center justify-between mt-2 mx-4 lg:'>
+              <div className='flex items-center justify-between mt-2 mx-4 lg:'>
                 <div className='text-lg font-bold leading-tight  '>
                   {product.name}
                 </div>
@@ -85,8 +91,31 @@ function ProductScreen() {
                 </div>
               </div>
 
+              {product.countInStock > 0 && (
+                <div className='grid grid-flow-col grid-cols-2  m-4'>
+                  <div className='flex justify-between items-center border-r lg:border-0'>
+                    <h3 className='font-semibold'>Qty</h3>
+                  </div>
+                  <div className='flex justify-between items-center'>
+                    <select
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                      className='select-form w-full '
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
+
               <div className='px-4'>
                 <button
+                  onClick={addToCartHandler}
+                  disabled={product.countInStock === 0}
                   type='button'
                   className='flex items-center justify-center w-full bg-gray-600  text-white hover:bg-gray-500 text-lg font-semibold py-2 rounded'
                 >
