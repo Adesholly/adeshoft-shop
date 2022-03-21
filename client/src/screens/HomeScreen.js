@@ -3,7 +3,7 @@ import Product from "../components/Product"
 import { useDispatch, useSelector } from "react-redux"
 import { listProducts } from "../actions/productActions"
 import Loader from "react-spinners/ClipLoader"
-import Error from "../components/Error"
+import Message from "../components/Message"
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -20,7 +20,7 @@ function HomeScreen() {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Error>{error}</Error>
+        <Message>{error}</Message>
       ) : (
         <div className='px-16 lg:px-32 py-2 mt-8'>
           <h1 className='text-xl uppercase font-semibold tracking-tight text-gray-600'>

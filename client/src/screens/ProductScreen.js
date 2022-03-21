@@ -5,23 +5,23 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { listProductDetail } from "../actions/productActions"
 import Rating from "../components/Rating"
-import Error from "../components/Error"
+import Message from "../components/Message"
 import Loader from "react-spinners/ClipLoader"
 
 function ProductScreen() {
   const [qty, setQty] = useState(1)
-  const { id } = useParams()
-  const navigation = useNavigate()
+  const params = useParams()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const productDetail = useSelector((state) => state.productDetail)
   const { loading, error, product } = productDetail
 
   useEffect(() => {
-    dispatch(listProductDetail(id))
-  }, [dispatch])
+    dispatch(listProductDetail(params.id))
+  }, [dispatch, params.id])
 
   function addToCartHandler() {
-    navigation(`/cart/?${id}qty=${qty}`)
+    navigate(`/cart/?${params.id}?qty=${qty}`)
   }
 
   return (
@@ -29,7 +29,7 @@ function ProductScreen() {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Error>{error}</Error>
+        <Message>{error}</Message>
       ) : (
         <div className='px-16 lg:px-32 py-2 mt-4 '>
           <Link to='/'>

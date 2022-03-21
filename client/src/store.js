@@ -5,7 +5,7 @@ import {
   productDetailReducer,
   productListReducer,
 } from "./reducers/productReducers"
-import { cartReducer } from "./reducers/cartRecuders"
+import { cartReducer } from "./reducers/cartReducers"
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
