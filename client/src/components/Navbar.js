@@ -52,7 +52,7 @@ function Navbar() {
             </div>
           </div>
 
-          <div className={openNavbar ? "block" : "hidden " + "sm:flex"}>
+          <div className={`${openNavbar ? "block" : "hidden"}  sm:flex`}>
             <ul className='px-4 py-2 sm:flex'>
               <Link to='cart'>
                 <li className='nav-item flex text-white hover:bg-gray-500 px-4 sm:px-2 rounded py-1 font-semibold leading-snug'>

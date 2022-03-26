@@ -17,7 +17,7 @@ function LoginScreen() {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"
+  const redirect = location.search ? location.search.split("=")[1] : "/register"
 
   useEffect(() => {
     if (userInfo) {
@@ -32,9 +32,9 @@ function LoginScreen() {
 
   return (
     <div>
-      <div className='min-h-screen overflow-auto flex flex-col'>
-        <div className='container -mt-16 max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-1'>
-          <div className='bg-white px-8 py-8 rounded shadow-lg text-black w-full border border-gray-100'>
+      <div className='overflow-auto flex flex-col'>
+        <div className='container max-w-sm mx-auto flex-1 items-center justify-center px-1'>
+          <div className='bg-white mt-16 px-8 py-8 rounded shadow-lg text-black w-full border border-gray-100'>
             <h1 className='mb-8 text-gray-700 text-3xl text-center'>Login</h1>
             {loading && <Loader />}
             {error && <Message>{error}</Message>}
@@ -66,6 +66,7 @@ function LoginScreen() {
               />
 
               <button
+                type='submit'
                 className='w-full text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
                 onClick={loginFormHandler}
               >
