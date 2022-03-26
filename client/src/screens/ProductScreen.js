@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { listProductDetail } from "../actions/productActions"
 import Rating from "../components/Rating"
 import Message from "../components/Message"
-import Loader from "react-spinners/ClipLoader"
+import Loader from "../components/Loader"
 
 function ProductScreen() {
   const [qty, setQty] = useState(1)

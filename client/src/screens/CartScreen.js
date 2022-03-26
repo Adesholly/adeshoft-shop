@@ -61,7 +61,7 @@ function CartScreen() {
                     onChange={(e) =>
                       dispatch(addToCart(item.product, Number(e.target.value)))
                     }
-                    className='select-form h-10'
+                    className='select-form border-gray-200  rounded focus:outline-none shadow-sm focus:border-gray-400 focus:ring-0 focus:ring-gray-500'
                   >
                     {[...Array(item.countInStock).keys()].map((x) => (
                       <option key={x + 1} value={x + 1}>

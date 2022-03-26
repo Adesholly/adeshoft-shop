@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import HomeScreen from "./screens/HomeScreen"
 import ProductScreen from "./screens/ProductScreen"
 import CartScreen from "./screens/CartScreen"
+import LoginScreen from "./screens/LoginScreen"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path='/' exact element={<HomeScreen />} />
             <Route path='/:id' element={<ProductScreen />} />
             <Route path='/cart/' element={<CartScreen />} />
+            <Route path='/login' element={<LoginScreen />} />
           </Routes>
         </main>
         <Footer />

@@ -42,15 +42,19 @@ function Navbar() {
 
           <div className={openNavbar ? "block" : "hidden " + "sm:flex"}>
             <ul className='px-4 py-2 sm:flex'>
-              <li className='nav-item flex text-white hover:bg-gray-500 px-4 sm:px-2 rounded py-1 font-semibold leading-snug'>
-                <Link to='cart'>Cart</Link>
-                <ShoppingCartIcon className='h-6 w-6 text-white' />
-              </li>
+              <Link to='cart'>
+                <li className='nav-item flex text-white hover:bg-gray-500 px-4 sm:px-2 rounded py-1 font-semibold leading-snug'>
+                  <h2>Cart</h2>
+                  <ShoppingCartIcon className='h-6 w-6 text-white' />
+                </li>
+              </Link>
 
-              <li className='nav-item flex text-white hover:bg-gray-500 px-4 py-1 rounded font-bold leading-snug'>
-                <Link to='register'>Signin</Link>
-                <UserIcon className='h-5 w-5 text-white' />
-              </li>
+              <Link to='login'>
+                <li className='nav-item flex text-white hover:bg-gray-500 px-4 py-1 rounded font-bold leading-snug'>
+                  <h2>Signin</h2>
+                  <UserIcon className='h-5 w-5 text-white' />
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
