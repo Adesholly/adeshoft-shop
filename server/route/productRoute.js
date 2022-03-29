@@ -8,6 +8,6 @@ const router = express.Router()
 
 router.route("/").get(getProducts)
 
-router.route("/:id").get(getProductByID)
+router.route("/product/:id").get(getProductByID)
 
 export default router

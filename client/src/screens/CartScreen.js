@@ -8,7 +8,7 @@ import { TrashIcon } from "@heroicons/react/solid"
 
 function CartScreen() {
   const location = useLocation()
-  const productId = location.search && location.search.slice(1, 25)
+  const productId = location.search && location.search.slice(1, 25).toString()
   const qty = location.search ? Number(location.search.split("=")[1]) : 1
 
   const dispatch = useDispatch()
@@ -52,7 +52,7 @@ function CartScreen() {
                   key={item.product}
                 >
                   <img className='w-36 h-24' src={item.image} alt={item.name} />
-                  <Link to={`/${item.product}`}>
+                  <Link to={`/product/${item.product}`}>
                     <h2>{item.name}</h2>
                   </Link>
 

@@ -104,7 +104,7 @@ function RegisterScreen() {
                 <button
                   type='submit'
                   className='w-full text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
-                  onSubmit={registerUserHandler}
+                  onClick={registerUserHandler}
                 >
                   Create Account
                 </button>

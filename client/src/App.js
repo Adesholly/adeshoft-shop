@@ -6,6 +6,7 @@ import ProductScreen from "./screens/ProductScreen"
 import CartScreen from "./screens/CartScreen"
 import LoginScreen from "./screens/LoginScreen"
 import RegisterScreen from "./screens/RegisterScreen"
+import ProfileScreen from "./screens/ProfileScreen"
 
 function App() {
   return (
@@ -14,11 +15,12 @@ function App() {
         <Navbar />
         <main className='min-h-[80vh]'>
           <Routes>
-            <Route path='/' exact element={<HomeScreen />} />
-            <Route path='/:id' element={<ProductScreen />} />
-            <Route path='/cart/' element={<CartScreen />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
+            <Route path='/profile' element={<ProfileScreen />} />
+            <Route path='/product/:id' element={<ProductScreen />} />
+            <Route path='/cart/' element={<CartScreen />} />
+            <Route path='/' exact element={<HomeScreen />} />
           </Routes>
         </main>
         <Footer />
