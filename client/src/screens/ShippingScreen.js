@@ -2,8 +2,9 @@ import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { saveShipping } from "../actions/cartActions"
+import CheckoutStep from "../components/CheckoutStep"
 
-function ShippingScreen() {
+function ShippingScreen({ step1, step2 }) {
   const cart = useSelector((state) => state.cart)
   const { shipping } = cart
 
@@ -27,7 +28,8 @@ function ShippingScreen() {
         className='
      '
       >
-        <div className='bg-white mt-10 px-8 py-8 rounded shadow-lg text-black w-full border border-gray-100 '>
+        <div className='bg-white mt-5 px-8 py-8 rounded shadow-lg text-black w-full border border-gray-100 '>
+          <CheckoutStep step1 step2 />
           <h1 className='mb-8 text-gray-700 text-3xl text-center'>Shipping</h1>
           <form
             onSubmit={saveShippingHandler}

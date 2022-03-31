@@ -25,6 +25,10 @@ const shippingInfoFromStorage = localStorage.getItem("shippingInfo")
   ? JSON.parse(localStorage.getItem("shippingInfo"))
   : {}
 
+const paymentInfoFromStorage = localStorage.getItem("paymentInfo")
+  ? JSON.parse(localStorage.getItem("paymentInfo"))
+  : ""
+
 const reducer = combineReducers({
   productList: productListReducer,
   productDetail: productDetailReducer,
@@ -36,7 +40,11 @@ const reducer = combineReducers({
 })
 
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage, shipping: shippingInfoFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shipping: shippingInfoFromStorage,
+    payment: paymentInfoFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 }
 
