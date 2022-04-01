@@ -1,15 +1,21 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router"
 import CheckoutStep from "../components/CheckoutStep"
+import { orderCreateItems } from "../actions/orderAction"
+import Message from "../components/Message"
 
 function PlaceOrderScreen({ step1, step2, step3, step4 }) {
   const cart = useSelector((state) => state.cart)
   const { cartItems, shipping, payment } = cart
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  //Order items summary calculation
   function format2Decimal(num) {
     return (Math.round(num * 100) / 100).toFixed(2)
   }
-
   cart.itemsPrice = format2Decimal(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   )
@@ -22,8 +28,27 @@ function PlaceOrderScreen({ step1, step2, step3, step4 }) {
     Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)
   )
 
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { success, error, order } = orderCreate
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`)
+    }
+  }, [success, navigate])
+
   const saveOrderhandler = () => {
-    console.log("order now")
+    dispatch(
+      orderCreateItems({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shipping,
+        paymentMethod: cart.payment,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
   }
   return (
     <div className='px-16 lg:px-32 py-2 mt-8'>
@@ -92,6 +117,7 @@ function PlaceOrderScreen({ step1, step2, step3, step4 }) {
                 <span>${cart.totalPrice}</span>
               </li>
               <li className='p-2'>
+                {error && <Message>{error}</Message>}
                 <button
                   disabled={cart.cartItems.length === 0}
                   type='submit'
