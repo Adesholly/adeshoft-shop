@@ -8,7 +8,7 @@ function PaymentScreen({ step1, step2, step3 }) {
   const cart = useSelector((state) => state.cart)
   const { shipping, payment } = cart
 
-  const [paymentMethod, setPaymentMethod] = useState("")
+  const [paymentMethod, setPaymentMethod] = useState(payment)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -19,7 +19,7 @@ function PaymentScreen({ step1, step2, step3 }) {
 
   const savePaymentMethodHandler = (e) => {
     e.preventDefault()
-    dispatch(savePaymentMethod(payment))
+    dispatch(savePaymentMethod(paymentMethod))
     navigate("/placeOrder")
   }
 
@@ -39,7 +39,7 @@ function PaymentScreen({ step1, step2, step3 }) {
             <input
               type='radio'
               className='form-radio text-gray-500 focus:ring-gray-600 mr-4'
-              name={paymentMethod}
+              name='paymentMethod'
               id='Paypal'
               value='Paypal'
               checked
@@ -61,7 +61,7 @@ function PaymentScreen({ step1, step2, step3 }) {
             <input
               type='radio'
               className='form-radio text-gray-500 focus:ring-gray-600 mr-4'
-              name={paymentMethod}
+              name='paymentMethod'
               value='Stripe'
               id='Stripe'
               onChange={(e) => {

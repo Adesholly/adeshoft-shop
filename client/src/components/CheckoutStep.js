@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 function CheckoutStep({ step1, step2, step3, step4 }) {
   return (
-    <nav className='flex justify-between my-8 mx-2'>
+    <nav className='flex justify-between mb-8 mx-2'>
       <div className=''>
         {step1 ? (
           <Link to='/login'>
