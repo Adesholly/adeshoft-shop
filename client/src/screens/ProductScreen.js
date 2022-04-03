@@ -13,6 +13,7 @@ function ProductScreen() {
   const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const productDetail = useSelector((state) => state.productDetail)
   const { loading, error, product } = productDetail
 

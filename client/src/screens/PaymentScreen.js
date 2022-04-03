@@ -8,7 +8,7 @@ function PaymentScreen({ step1, step2, step3 }) {
   const cart = useSelector((state) => state.cart)
   const { shipping, payment } = cart
 
-  const [paymentMethod, setPaymentMethod] = useState(payment)
+  const [paymentMethod, setPaymentMethod] = useState("Paypal")
 
   const navigate = useNavigate()
   const dispatch = useDispatch()

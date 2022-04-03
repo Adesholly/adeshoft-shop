@@ -49,6 +49,7 @@ function PlaceOrderScreen({ step1, step2, step3, step4 }) {
         totalPrice: cart.totalPrice,
       })
     )
+    console.log(document.querySelectorAll(" p * div "))
   }
   return (
     <div className='px-16 lg:px-32 py-2 mt-8'>
@@ -117,7 +118,7 @@ function PlaceOrderScreen({ step1, step2, step3, step4 }) {
                 <span>${cart.totalPrice}</span>
               </li>
               <li className='p-2'>
-                {error && <Message>{error}</Message>}
+                {error && <Message> {error}</Message>}
                 <button
                   disabled={cart.cartItems.length === 0}
                   type='submit'
