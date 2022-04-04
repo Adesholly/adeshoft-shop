@@ -1,21 +1,43 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { getOrderDetail } from "../actions/orderAction"
+import { getOrderDetail, getOrderPay } from "../actions/orderAction"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
+import axios from "axios"
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
+
+import { ORDER_PAY_RESET } from "../constants/OrderConstants"
 
 function PlaceOrderScreen() {
   const orderDetail = useSelector((state) => state.orderDetail)
   const { loading, error, order } = orderDetail
 
+  const orderPay = useSelector((state) => state.orderPay)
+  const { loading: loadingPay, success: successPay } = orderPay
+
   const { id } = useParams()
   const dispatch = useDispatch()
+  const initailOption = {
+    "client-id":
+      "AZncpkArhzCsckSsASbWAPtEQERHQqd1_qaHP0NeDjZ9eyxiwX15P9GWWxtetnkp8vE6T8d4AVQ0MYIT",
+    currency: "USD",
+    intent: "capture",
+  }
 
   useEffect(() => {
-    dispatch(getOrderDetail(id))
+    dispatch({
+      type: ORDER_PAY_RESET,
+    })
+    if (!order.isPaid || successPay) {
+      dispatch(getOrderDetail(id))
+    }
   }, [dispatch, id])
 
+  const orderPayHandler = (paymentResult) => {
+    dispatch(getOrderPay(id, paymentResult))
+    console.log(paymentResult)
+  }
   return (
     <div className='px-16 lg:px-32 py-2 mt-8'>
       <div className='bg-white mt-5 px-8 py-8 rounded shadow-lg text-gray-700 w-full border border-gray-100 '>
@@ -52,25 +74,25 @@ function PlaceOrderScreen() {
                       {order.shippingAddress.country}
                     </span>
                   </p>
-                  <p className='text-sm px-4'>
+                  <div className='text-sm px-4'>
                     {order.isDelivered ? (
                       <Message>Delivered on {order.deliveredAt}</Message>
                     ) : (
                       <Message>Not Delivered</Message>
                     )}
-                  </p>
+                  </div>
                 </div>
 
                 <div className='mb-4'>
                   <h2 className='font-semibold'>Payment Method</h2>
                   <p className='text-sm mb-3 px-4'>{order.paymentMethod}</p>
-                  <p className='text-sm px-4'>
+                  <div className='text-sm px-4'>
                     {order.isPaid ? (
                       <Message>Paid on {order.paidAt}</Message>
                     ) : (
                       <Message>Not Paid</Message>
                     )}
-                  </p>
+                  </div>
                 </div>
 
                 <div className='mb-4'>
@@ -118,14 +140,14 @@ function PlaceOrderScreen() {
                     <span>${order.totalPrice}</span>
                   </li>
                   <li className='p-2'>
-                    {error && <Message> {error}</Message>}
-                    <button
-                      disabled={order.orderItems.length === 0}
-                      type='submit'
-                      className='w-full text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
-                    >
-                      Pay now
-                    </button>
+                    {!order.isPaid && (
+                      <PayPalScriptProvider options={initailOption}>
+                        <PayPalButtons
+                          amount={order.totalPrice}
+                          onClick={orderPayHandler}
+                        />
+                      </PayPalScriptProvider>
+                    )}
                   </li>
                 </ul>
               </div>
