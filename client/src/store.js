@@ -13,6 +13,7 @@ import {
   userUpdateReducer,
 } from "./reducers/userReducers"
 import {
+  myOrderReducer,
   orderCreateReducer,
   orderDetailReducer,
   orderPayReducer,
@@ -41,6 +42,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetail: orderDetailReducer,
   orderPay: orderPayReducer,
+  myOrder: myOrderReducer,
 })
 
 const initialState = {

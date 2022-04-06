@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
+import { listMyOrder } from "../actions/orderAction"
 import { getUserDetail, updateUserDetail } from "../actions/userActions"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
@@ -22,6 +23,9 @@ function ProfileScreen() {
   const userDetail = useSelector((state) => state.userDetail)
   const { loading, error, user } = userDetail
 
+  const myOrder = useSelector((state) => state.myOrder)
+  const { loading: loadingMyOrder, myorder, error: errorMyOrder } = myOrder
+
   const userUpdate = useSelector((state) => state.userUpdate)
   const { success } = userUpdate
 
@@ -31,6 +35,7 @@ function ProfileScreen() {
     } else {
       if (!user.name) {
         dispatch(getUserDetail("profile"))
+        dispatch(listMyOrder())
       } else {
         setName(user.name)
         setEmail(user.email)
@@ -49,9 +54,9 @@ function ProfileScreen() {
 
   return (
     <>
-      <div className='grid grid-flow-row sm:grid-cols-2 px-16 lg:px-32 py-2 mt-4 '>
+      <div className='grid grid-flow-row sm:grid-cols-2 gap-4 px-16 lg:px-32 py-2 mt-4 overflow-auto'>
         <div className=''>
-          <h2 className='mb-8 text-gray-700 text-3xl'>Upadate your Profile</h2>
+          <h2 className='mb-8 text-gray-700 text-3xl'>Edit your Profile</h2>
           {loading && <Loader />}
           {message && <Message>{message}</Message>}
           {error && <Message>{error}</Message>}
@@ -120,7 +125,72 @@ function ProfileScreen() {
           </form>
         </div>
         <div className=''>
-          <h2 className='mb-8 text-gray-700 text-3xl text-center'>My Order</h2>
+          <h2 className='mb-8 text-gray-700 text-3xl'>My Orders</h2>
+          <div className='overflow-auto rounded-lg shadow-gray-50'>
+            {loadingMyOrder && <Loader />}{" "}
+            {errorMyOrder && <Message>{errorMyOrder}</Message>}
+            {myorder && (
+              <table className='w-full'>
+                <thead className='bg-gray-50 border-b-2 border-gray-200'>
+                  <tr>
+                    <th className='p-3 text-left tracking-wide text-sm'>ID</th>
+                    <th className='w-28 p-3 text-left tracking-wide text-sm'>
+                      DATE
+                    </th>
+                    <th className='p-3 text-left tracking-wide text-sm'>
+                      PRICE
+                    </th>
+                    <th className='p-3 text-left tracking-wide text-sm'>
+                      PAYMENT
+                    </th>
+                    <th className='p-3 text-left tracking-wide text-sm'>
+                      DELIVERY
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className='bg-gray-50/50 divide-y divide-gray-100 text-sm'>
+                  {myorder.map((order) => (
+                    <tr key={order._id}>
+                      <td className='uppercase px-3 py-1 whitespace-nowrap'>
+                        {order._id}
+                      </td>
+                      <td className='px-3 py-2  whitespace-nowrap'>
+                        {order.createdAt.substring(0, 10)}
+                      </td>
+                      <td className='px-3 py-2  whitespace-nowrap'>
+                        ${order.totalPrice}
+                      </td>
+                      <td className='px-3 py-2  whitespace-nowrap'>
+                        {order.isPaid ? (
+                          <span>
+                            Paid<i className='fa-regular fa-circle-check'></i>
+                          </span>
+                        ) : (
+                          <span>
+                            Not Paid{" "}
+                            <i className='fa-regular fa-circle-xmark'></i>
+                          </span>
+                        )}
+                      </td>
+                      <td className='px-3 py-2  whitespace-nowrap'>
+                        {order.isDelivered ? (
+                          <span>
+                            Delivered
+                            <i className='fa-regular fa-circle-check'></i>
+                          </span>
+                        ) : (
+                          <span>
+                            Delivery
+                            <i className='fa-regular fa-circle-xmark'></i>
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
     </>
