@@ -60,7 +60,9 @@ function Navbar() {
                   <ShoppingCartIcon className='h-6 w-6 text-white' />
                 </li>
               </Link>
-              {userInfo ? (
+              {/* User Navigation Dropdown */}
+
+              {userInfo && !userInfo.isAdmin ? (
                 <div className='flex'>
                   <div className='relative inline-block text-left'>
                     <Menu>
@@ -121,21 +123,95 @@ function Navbar() {
                                           : "text-gray-700"
                                       } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
                                     >
-                                      <span>Account settings</span>
+                                      <span>My Profile</span>
                                     </Link>
                                   )}
                                 </Menu.Item>
+                              </div>
+
+                              <div className='py-1'>
                                 <Menu.Item>
                                   {({ active }) => (
-                                    <Link
-                                      to='#'
+                                    <span
+                                      onClick={logoutHandler}
                                       className={`${
                                         active
                                           ? "bg-gray-100 text-gray-900"
                                           : "text-gray-700"
                                       } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
                                     >
-                                      Support
+                                      Sign out
+                                    </span>
+                                  )}
+                                </Menu.Item>
+                              </div>
+                            </Menu.Items>
+                          </Transition>
+                        </>
+                      )}
+                    </Menu>
+                  </div>
+                </div>
+              ) : userInfo && userInfo.isAdmin ? (
+                <div className='flex'>
+                  <div className='relative inline-block text-left'>
+                    <Menu>
+                      {({ open }) => (
+                        <>
+                          <span className='rounded-md shadow-sm'>
+                            <Menu.Button
+                              className='inline-flex justify-center w-full text-white transition duration-150 ease-in-out
+                             bg-gray-600 border-none border-gray-300 hover:bg-gray-500 px-4 sm:px-2 rounded py-1 font-semibold leading-snug  focus:outline-none focus:border-blue-300 focus:shadow-outline-blue '
+                            >
+                              <span>ADMIN</span>
+                              <svg
+                                className='w-5 h-5 ml-2 -mr-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path
+                                  fillRule='evenodd'
+                                  d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                                  clipRule='evenodd'
+                                />
+                              </svg>
+                            </Menu.Button>
+                          </span>
+
+                          <Transition
+                            show={open}
+                            enter='transition ease-out duration-100'
+                            enterFrom='transform opacity-0 scale-95'
+                            enterTo='transform opacity-100 scale-100'
+                            leave='transition ease-in duration-75'
+                            leaveFrom='transform opacity-100 scale-100'
+                            leaveTo='transform opacity-0 scale-95'
+                          >
+                            <Menu.Items
+                              static
+                              className='absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none'
+                            >
+                              <div className='px-4 py-3'>
+                                <p className='text-sm leading-5'>
+                                  Signed in as
+                                </p>
+                                <p className='text-sm font-medium leading-5 text-gray-900 truncate'>
+                                  {userInfo.email}
+                                </p>
+                              </div>
+
+                              <div className='py-1'>
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <Link
+                                      to='/profile'
+                                      className={`${
+                                        active
+                                          ? "bg-gray-100 text-gray-900"
+                                          : "text-gray-700"
+                                      } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                                    >
+                                      <span>My Profile</span>
                                     </Link>
                                   )}
                                 </Menu.Item>
@@ -143,14 +219,44 @@ function Navbar() {
                                 <Menu.Item>
                                   {({ active }) => (
                                     <Link
-                                      to='#'
+                                      to='/admin/userlist'
                                       className={`${
                                         active
                                           ? "bg-gray-100 text-gray-900"
                                           : "text-gray-700"
                                       } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
                                     >
-                                      License
+                                      <span>User List</span>
+                                    </Link>
+                                  )}
+                                </Menu.Item>
+
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <Link
+                                      to='/admin/productlist'
+                                      className={`${
+                                        active
+                                          ? "bg-gray-100 text-gray-900"
+                                          : "text-gray-700"
+                                      } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                                    >
+                                      <span>Products List</span>
+                                    </Link>
+                                  )}
+                                </Menu.Item>
+
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <Link
+                                      to='/admin/orderlist'
+                                      className={`${
+                                        active
+                                          ? "bg-gray-100 text-gray-900"
+                                          : "text-gray-700"
+                                      } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                                    >
+                                      <span>Orders List</span>
                                     </Link>
                                   )}
                                 </Menu.Item>

@@ -92,4 +92,21 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not Found")
   }
 })
-export { authUser, registerUser, getUserProfile, updateUserProfile }
+
+const getUsersList = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+  if (users) {
+    res.json(users)
+  } else {
+    res.status(404)
+    throw new Error("Users not Found")
+  }
+})
+
+export {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  getUsersList,
+}

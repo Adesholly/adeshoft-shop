@@ -126,7 +126,7 @@ function ProfileScreen() {
         </div>
         <div className=''>
           <h2 className='mb-8 text-gray-700 text-3xl'>My Orders</h2>
-          <div className='overflow-auto rounded-lg shadow-gray-50'>
+          <div className='rounded-lg shadow-gray-50'>
             {loadingMyOrder && <Loader />}{" "}
             {errorMyOrder && <Message>{errorMyOrder}</Message>}
             {myorder && (
