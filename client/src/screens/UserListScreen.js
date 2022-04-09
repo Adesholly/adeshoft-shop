@@ -68,7 +68,7 @@ function UserListScreen() {
                   </td>
 
                   <td className='px-3 py-2  whitespace-nowrap'>
-                    <Link to={`/user/${user._id}/edit`}>
+                    <Link to={`/admin/user/${user._id}/edit`}>
                       <button>
                         <i className='fas fa-edit'></i>Edit
                       </button>

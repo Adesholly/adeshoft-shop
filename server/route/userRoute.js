@@ -1,6 +1,7 @@
 import express from "express"
 import {
   authUser,
+  editUser,
   getUserById,
   getUserProfile,
   getUsersList,
@@ -18,6 +19,9 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile)
 
-router.route("/:id").get(protect, admin, getUserById)
+router
+  .route("/:id")
+  .get(protect, admin, getUserById)
+  .put(protect, admin, editUser)
 
 export default router

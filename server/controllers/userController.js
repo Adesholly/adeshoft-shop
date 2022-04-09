@@ -93,6 +93,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
+//Get User's List as an Admin
 const getUsersList = asyncHandler(async (req, res) => {
   const users = await User.find({})
   if (users) {
@@ -103,10 +104,33 @@ const getUsersList = asyncHandler(async (req, res) => {
   }
 })
 
+//Get user ID info in order to edit the user as an Admin
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select("-password")
   if (user) {
     res.json(user)
+  } else {
+    res.status(404)
+    throw new Error("User not Found")
+  }
+})
+
+//Editing the user information and saving back to the database
+const editUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    user.isAdmin = req.body.isAdmin
+
+    const editedUser = await user.save()
+    res.json({
+      _id: editedUser._id,
+      name: editedUser.name,
+      email: editedUser.email,
+      isAdmin: editedUser.isAdmin,
+    })
   } else {
     res.status(404)
     throw new Error("User not Found")
@@ -120,4 +144,5 @@ export {
   updateUserProfile,
   getUsersList,
   getUserById,
+  editUser,
 }
