@@ -18,9 +18,6 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_RESET,
-  USER_EDIT_REQUEST,
-  USER_EDIT_SUCCESS,
-  USER_EDIT_FAIL,
 } from "../constants/userConstants"
 
 export const login = (email, password) => async (dispatch) => {
@@ -203,9 +200,11 @@ export const listUsers = () => async (dispatch, getState) => {
   }
 }
 
-export const getUserById = (id) => async (dispatch, getState) => {
+export const editUser = (user) => async (dispatch, getState) => {
   try {
-    dispatch({ type: USER_EDIT_REQUEST })
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    })
 
     const {
       userLogin: { userInfo },
@@ -213,16 +212,20 @@ export const getUserById = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
 
-    const { data } = await axios.get(`/api/users/${id}`, config)
+    const { data } = await axios.put(`/api/users/${user._id}`, user, config)
 
-    dispatch({ type: USER_EDIT_SUCCESS, payload: data })
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+      payload: data,
+    })
   } catch (error) {
     dispatch({
-      type: USER_EDIT_FAIL,
+      type: USER_UPDATE_FAIL,
       Payload:
         error.response && error.response.data.message
           ? error.response.data.message

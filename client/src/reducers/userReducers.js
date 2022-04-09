@@ -2,8 +2,6 @@ import {
   USER_DETAIL_FAIL,
   USER_DETAIL_REQUEST,
   USER_DETAIL_SUCCESS,
-  USER_EDIT_FAIL,
-  USER_EDIT_REQUEST,
   USER_LIST_FAIL,
   USER_LIST_REQUEST,
   USER_LIST_RESET,
@@ -97,14 +95,19 @@ export const userListReducer = (state = { users: [] }, action) => {
   }
 }
 
-export const userEditReducer = (state = {}, action) => {
+export const userEditReducer = (state = { user: {} }, action) => {
   switch (action.type) {
-    case USER_EDIT_REQUEST:
+    case USER_UPDATE_REQUEST:
       return { loading: true }
-    case USER_LIST_SUCCESS:
+    case USER_UPDATE_SUCCESS:
       return { loading: false, success: true }
-    case USER_EDIT_FAIL:
+    case USER_UPDATE_FAIL:
       return { loading: false, error: action.payload }
+    case USER_UPDATE_RESET:
+      return {
+        user: {},
+      }
+
     default:
       return state
   }
