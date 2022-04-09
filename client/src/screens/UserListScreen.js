@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { listUsers } from "../actions/userActions"
+import { deleteUser, listUsers } from "../actions/userActions"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
 import { useNavigate } from "react-router-dom"
@@ -13,8 +13,10 @@ function UserListScreen() {
   const { loading, error, users } = userList
 
   const userLogin = useSelector((state) => state.userLogin)
-
   const { userInfo } = userLogin
+
+  const userDelete = useSelector((state) => state.userDelete)
+  const { success: successDelete } = userDelete
 
   const navigate = useNavigate()
 
@@ -24,10 +26,10 @@ function UserListScreen() {
     } else {
       navigate("/login")
     }
-  }, [dispatch, userInfo, navigate])
+  }, [dispatch, userInfo, navigate, successDelete])
 
   const deleteHandler = (id) => {
-    console.log("delete")
+    dispatch(deleteUser(id))
   }
   return (
     <div className='px-16 lg:px-32 py-2 mt-8'>
@@ -70,14 +72,14 @@ function UserListScreen() {
                   <td className='px-3 py-2  whitespace-nowrap'>
                     <Link to={`/admin/user/${user._id}/edit`}>
                       <button>
-                        <i className='fas fa-edit'></i>Edit
+                        <i className='fas fa-edit'></i>
                       </button>
                     </Link>
                     <button
                       className='ml-4'
                       onClick={() => deleteHandler(user._id)}
                     >
-                      <i className='fas fa-trash'></i>Delete
+                      <i className='fas fa-trash'></i>
                     </button>
                   </td>
                 </tr>

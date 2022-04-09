@@ -37,6 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
   })
+
   if (user) {
     res.status(201).json({
       _id: user._id,
@@ -137,6 +138,18 @@ const editUser = asyncHandler(async (req, res) => {
   }
 })
 
+//Get user ID info in order to edit the user as an Admin
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+  if (user) {
+    await user.remove()
+    res.json({ message: "user removed" })
+  } else {
+    res.status(404)
+    throw new Error("User not Found")
+  }
+})
+
 export {
   authUser,
   registerUser,
@@ -145,4 +158,5 @@ export {
   getUsersList,
   getUserById,
   editUser,
+  deleteUser,
 }
