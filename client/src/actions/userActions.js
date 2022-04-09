@@ -18,6 +18,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_RESET,
+  USER_EDIT_REQUEST,
+  USER_EDIT_SUCCESS,
+  USER_EDIT_FAIL,
 } from "../constants/userConstants"
 
 export const login = (email, password) => async (dispatch) => {
@@ -192,6 +195,34 @@ export const listUsers = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_LIST_FAIL,
+      Payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const getUserById = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_EDIT_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/users/${id}`, config)
+
+    dispatch({ type: USER_EDIT_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({
+      type: USER_EDIT_FAIL,
       Payload:
         error.response && error.response.data.message
           ? error.response.data.message
