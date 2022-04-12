@@ -138,7 +138,7 @@ function Navbar() {
                                         active
                                           ? "bg-gray-100 text-gray-900"
                                           : "text-gray-700"
-                                      } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                                      } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left cursor-pointer`}
                                     >
                                       Sign out
                                     </span>
