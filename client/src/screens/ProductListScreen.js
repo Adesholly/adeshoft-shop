@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { listProducts } from "../actions/productActions"
+import { deleteProduct, listProducts } from "../actions/productActions"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
 import { useNavigate } from "react-router-dom"
@@ -15,8 +15,8 @@ function ProductListScreen() {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const userDelete = useSelector((state) => state.userDelete)
-  const { success: successDelete } = userDelete
+  const productDelete = useSelector((state) => state.productDelete)
+  const { success: successDelete } = productDelete
 
   const navigate = useNavigate()
 
@@ -30,7 +30,7 @@ function ProductListScreen() {
 
   const deleteHandler = (id) => {
     if (window.confirm("Are sure you want to delete?")) {
-      console.log("deleted")
+      dispatch(deleteProduct(id))
     }
   }
   return (
