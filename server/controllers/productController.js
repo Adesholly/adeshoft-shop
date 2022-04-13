@@ -36,7 +36,7 @@ const createProduct = asyncHandler(async (req, res) => {
     name: "Sample name",
     user: req.user._id,
     price: 0,
-    image: "/image/sample.png",
+    image: "/images/sample.jpg",
     brand: "sample brand",
     category: "sample category",
     countInStock: 0,
@@ -51,16 +51,8 @@ const createProduct = asyncHandler(async (req, res) => {
 
 //Edit product and domin product
 const updateProduct = asyncHandler(async (req, res) => {
-  const {
-    name,
-    price,
-    image,
-    brand,
-    category,
-    countInStock,
-    rating,
-    description,
-  } = req.body
+  const { name, price, image, brand, category, countInStock, description } =
+    req.body
 
   const product = await Product.findById(req.params.id)
 
@@ -71,7 +63,6 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.brand = brand
     product.category = category
     product.countInStock = countInStock
-    product.rating = rating
     product.description = description
 
     const updatedProduct = await product.save()
