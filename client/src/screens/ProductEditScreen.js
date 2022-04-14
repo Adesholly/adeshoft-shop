@@ -34,9 +34,7 @@ function ProductEditScreen() {
 
   useEffect(() => {
     if (successEdit) {
-      dispatch({
-        type: PRODUCT_UPDATE_RESET,
-      })
+      dispatch({ type: PRODUCT_UPDATE_RESET })
       navigate("/admin/productlist")
     } else {
       if (!product.name || product._id !== id) {

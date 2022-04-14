@@ -62,6 +62,9 @@ function ProductListScreen() {
   }
 
   const createProductHandler = () => {
+    dispatch({
+      type: PRODUCT_CREATE_RESET,
+    })
     dispatch(createProduct())
   }
 
