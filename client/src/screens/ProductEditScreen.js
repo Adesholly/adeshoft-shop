@@ -8,6 +8,7 @@ import { editProduct, listProductDetail } from "../actions/productActions"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants"
+import axios from "axios"
 
 function ProductEditScreen() {
   const [name, setName] = useState("")
@@ -17,6 +18,7 @@ function ProductEditScreen() {
   const [category, setCategory] = useState("")
   const [countInStock, setCountInStock] = useState(0)
   const [description, setDescription] = useState("")
+  const [uploading, setUploading] = useState(false)
 
   const dispatch = useDispatch()
   const { id } = useParams()
@@ -67,6 +69,26 @@ function ProductEditScreen() {
     )
   }
 
+  const uploadingHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append("image", file)
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+      const { data } = await axios.post("/api/upload", formData, config)
+      setImage(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
   return (
     <>
       <div className='px-16 lg:px-32 py-2 mt-8'>
@@ -74,11 +96,8 @@ function ProductEditScreen() {
           <ArrowCircleLeftIcon className='h-6 w-6 mb-2' />
         </Link>
         <div className='flex flex-col items-center'>
-          {product.name === "Sample name" ? (
-            <h2 className='mb-8 text-gray-700 text-xl'>Create New Product</h2>
-          ) : (
-            <h2 className='mb-8 text-gray-700 text-xl'>Edit Product</h2>
-          )}
+          <h2 className='mb-8 text-gray-700 text-xl'>Edit Product</h2>
+
           {loadingEdit && <Loader />}
           {errorEdit && <Message>{errorEdit}</Message>}
           {loading ? (
@@ -114,18 +133,25 @@ function ProductEditScreen() {
 
               <input
                 type='text      '
-                className='border border-gray-200 w-[300px] p-3 rounded mb-4 focus:outline-none shadow-sm focus:border-gray-400 focus:ring-0 focus:ring-gray-500'
+                className='border border-gray-200 w-[300px] p-3 rounded focus:outline-none shadow-sm focus:border-gray-400 focus:ring-0 focus:ring-gray-500'
                 required
                 name='image'
                 placeholder='Select Image'
                 value={image}
                 onChange={(e) => {
-                  setPrice(e.target.value)
+                  setImage(e.target.value)
                 }}
               />
+              <input
+                type='file'
+                className='mb-4 '
+                id='image-file'
+                onChange={uploadingHandler}
+              />
+              {uploading && <Loader />}
 
               <input
-                type='text      '
+                type='text'
                 className='border border-gray-200 w-[300px] p-3 rounded mb-4 focus:outline-none shadow-sm focus:border-gray-400 focus:ring-0 focus:ring-gray-500'
                 required
                 name='brand'
@@ -171,24 +197,13 @@ function ProductEditScreen() {
                   setDescription(e.target.value)
                 }}
               />
-
-              {product.name === "Sample name" ? (
-                <button
-                  type='submit'
-                  className='w-[300px] text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
-                  onClick={productEditHandler}
-                >
-                  Create
-                </button>
-              ) : (
-                <button
-                  type='submit'
-                  className='w-[300px] text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
-                  onClick={productEditHandler}
-                >
-                  Update
-                </button>
-              )}
+              <button
+                type='submit'
+                className='w-[300px] text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
+                onClick={productEditHandler}
+              >
+                Update
+              </button>
             </form>
           )}
         </div>
