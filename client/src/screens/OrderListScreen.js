@@ -93,7 +93,7 @@ function OrderListScreen() {
                       <Link to={`/order/${order._id}`}>
                         <button
                           type='button'
-                          className='bg-gray-100 text-gray-400 hover:bg-gray-200 p-2 shadow-lg rounded-lg'
+                          className='bg-gray-100 text-gray-400 hover:bg-gray-200 p-2 shadow-sm rounded'
                         >
                           Details
                         </button>

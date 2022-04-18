@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router"
-import { getOrderDetail, getOrderPay } from "../actions/orderAction"
+import { useNavigate, useParams } from "react-router"
+import {
+  getOrderDelivered,
+  getOrderDetail,
+  getOrderPay,
+} from "../actions/orderAction"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
-import axios from "axios"
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 
-import { ORDER_PAY_RESET } from "../constants/OrderConstants"
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from "../constants/OrderConstants"
 
 function PlaceOrderScreen() {
   const orderDetail = useSelector((state) => state.orderDetail)
@@ -16,7 +22,14 @@ function PlaceOrderScreen() {
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const orderDeliver = useSelector((state) => state.orderDeliver)
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+
   const { id } = useParams()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const initailOption = {
     "client-id":
@@ -26,17 +39,27 @@ function PlaceOrderScreen() {
   }
 
   useEffect(() => {
+    if (!userInfo) {
+      navigate("/login")
+    }
     dispatch({
       type: ORDER_PAY_RESET,
     })
-    if (!order.isPaid || successPay) {
+    dispatch({
+      type: ORDER_DELIVER_RESET,
+    })
+    if (!order.isPaid || successPay || successDeliver) {
       dispatch(getOrderDetail(id))
     }
-  }, [dispatch, id])
+  }, [dispatch, order, userInfo, id, successPay, navigate, successDeliver])
 
   const orderPayHandler = (paymentResult) => {
     dispatch(getOrderPay(id, paymentResult))
     console.log(paymentResult)
+  }
+
+  const orderDeliverHandler = () => {
+    dispatch(getOrderDelivered(order))
   }
   return (
     <div className='px-16 lg:px-32 py-2 mt-8'>
@@ -87,6 +110,7 @@ function PlaceOrderScreen() {
                   <h2 className='font-semibold'>Payment Method</h2>
                   <p className='text-sm mb-3 px-4'>{order.paymentMethod}</p>
                   <div className='text-sm px-4'>
+                    {loadingPay && <Loader />}
                     {order.isPaid ? (
                       <Message>Paid on {order.paidAt}</Message>
                     ) : (
@@ -139,6 +163,21 @@ function PlaceOrderScreen() {
                     <p className='font-semibold'>Total</p>
                     <span>${order.totalPrice}</span>
                   </li>
+                  {loadingDeliver && <Loader />}
+                  {userInfo &&
+                    userInfo.isAdmin &&
+                    order.isPaid &&
+                    !order.isDelivered && (
+                      <li className='p-2'>
+                        <button
+                          type='submit'
+                          className='w-full text-center py-3 rounded bg-gray-500 text-white hover:bg-gray-600 focus:outline-none my-1'
+                          onClick={orderDeliverHandler}
+                        >
+                          Marked as Delivered
+                        </button>
+                      </li>
+                    )}
                   <li className='p-2'>
                     {!order.isPaid && (
                       <PayPalScriptProvider options={initailOption}>
