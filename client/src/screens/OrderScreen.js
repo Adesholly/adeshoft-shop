@@ -9,7 +9,6 @@ import {
 import Message from "../components/Message"
 import Loader from "../components/Loader"
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
-
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
@@ -31,6 +30,7 @@ function PlaceOrderScreen() {
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const initailOption = {
     "client-id":
       "AZncpkArhzCsckSsASbWAPtEQERHQqd1_qaHP0NeDjZ9eyxiwX15P9GWWxtetnkp8vE6T8d4AVQ0MYIT",
@@ -45,9 +45,7 @@ function PlaceOrderScreen() {
     dispatch({
       type: ORDER_PAY_RESET,
     })
-    dispatch({
-      type: ORDER_DELIVER_RESET,
-    })
+
     if (!order.isPaid || successPay || successDeliver) {
       dispatch(getOrderDetail(id))
     }
