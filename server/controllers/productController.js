@@ -73,7 +73,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 })
 
-//ECreate new review product
+//Create new review product
 const newProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body
 
