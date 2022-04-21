@@ -8,6 +8,7 @@ import {
 import { Menu, Transition } from "@headlessui/react"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import SearchBox from "./SearchBox.js"
 import { logout } from "../actions/userActions.js"
 
 function Navbar() {
@@ -36,7 +37,7 @@ function Navbar() {
                 />
               </Link>
             </div>
-
+            <SearchBox />
             <div className='sm:hidden'>
               <button
                 className='cursor-pointer text-xl leading-none border border-solid border-transparent rounded bg-transparent block outline-none focus:outline-none'
