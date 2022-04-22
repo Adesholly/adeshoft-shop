@@ -3,6 +3,10 @@ import Product from "../models/productModel.js"
 
 //Get all products to be display at the home page
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 2
+
+  const page = Number(req.query.pageNumber) || 1
+
   const keyword = req.query.keyword
     ? {
         name: {
@@ -11,14 +15,20 @@ const getProducts = asyncHandler(async (req, res) => {
         },
       }
     : {}
+
+  const counts = await Product.countDocuments({ ...keyword })
+  const pages = Math.ceil(counts / pageSize)
+
   const products = await Product.find({ ...keyword })
-  res.json(products)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+
+  res.json({ products, page, pages })
 })
 
 //Get Single product to display
 const getProductByID = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
-
   if (product) {
     res.json(product)
   } else {

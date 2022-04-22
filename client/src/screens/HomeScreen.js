@@ -10,12 +10,14 @@ function HomeScreen() {
   const dispatch = useDispatch()
   const { keyword } = useParams()
 
+  const { pageNumber } = useParams() || 1
+
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
 
   useEffect(() => {
-    dispatch(listProducts(keyword))
-  }, [dispatch, keyword])
+    dispatch(listProducts(keyword, pageNumber))
+  }, [dispatch, keyword, pageNumber])
 
   return (
     <>
