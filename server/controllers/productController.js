@@ -3,7 +3,7 @@ import Product from "../models/productModel.js"
 
 //Get all products to be display at the home page
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 2
+  const pageSize = 10
 
   const page = Number(req.query.pageNumber) || 1
 
@@ -23,7 +23,7 @@ const getProducts = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1))
 
-  res.json({ products, page, pages })
+  res.json({ products, page, pages, counts })
 })
 
 //Get Single product to display

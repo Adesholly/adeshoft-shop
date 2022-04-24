@@ -6,7 +6,7 @@ function Footer() {
   return (
     <>
       <footer>
-        <div className='flex items-center justify-center mb-10'>
+        <div className='flex items-center justify-center my-5'>
           Copyright &copy;{year} Adeshoft Shop
         </div>
       </footer>

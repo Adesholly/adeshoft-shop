@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import {
   createProduct,
   deleteProduct,
@@ -10,14 +11,18 @@ import Loader from "../components/Loader"
 import Message from "../components/Message"
 import { useNavigate } from "react-router-dom"
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants"
+import Pagination from "../components/Pagination"
 
 function ProductListScreen() {
   const dispatch = useDispatch()
 
+  const { pageNumber } = useParams() || 1
+
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, page, pages, counts } = productList
 
   const productCreate = useSelector((state) => state.productCreate)
+
   const {
     loading: loadingCreate,
     error: errorCreate,
@@ -44,7 +49,7 @@ function ProductListScreen() {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(listProducts())
+      dispatch(listProducts("", pageNumber))
     }
   }, [
     dispatch,
@@ -53,6 +58,7 @@ function ProductListScreen() {
     successDelete,
     successCreate,
     createdProduct,
+    pageNumber,
   ])
 
   const deleteHandler = (id) => {
@@ -87,8 +93,8 @@ function ProductListScreen() {
               <i className='fa-solid fa-plus'></i> Create Product
             </button>
           </div>
-          <table className='w-full'>
-            <thead className='bg-gray-100 border-b-4 border-gray-200'>
+          <table className='w-full '>
+            <thead className='bg-gray-200 border-b-4 border-white'>
               <tr>
                 <th className='p-3 text-left tracking-wide text-sm'>ID</th>
                 <th className='p-3 text-left tracking-wide text-sm'>NAME</th>
@@ -100,9 +106,12 @@ function ProductListScreen() {
                 <th className='p-3 text-left tracking-wide text-sm'></th>
               </tr>
             </thead>
-            <tbody className='bg-gray-50 divide-y-2 divide-gray-100  text-sm'>
+            <tbody className=' text-sm'>
               {products.map((product) => (
-                <tr key={product._id}>
+                <tr
+                  key={product._id}
+                  className='odd:bg-white hover:bg-gray-200 even:bg-gray-100'
+                >
                   <td className='uppercase px-3 py-1 whitespace-nowrap'>
                     {product._id}
                   </td>
@@ -136,6 +145,12 @@ function ProductListScreen() {
               ))}
             </tbody>
           </table>
+          <Pagination
+            page={page}
+            pages={pages}
+            counts={counts}
+            isAdmin={true}
+          />
         </div>
       )}
     </div>
