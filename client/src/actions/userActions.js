@@ -110,9 +110,9 @@ export const register = (name, email, password) => async (distpach) => {
   }
 }
 
-export const getUserDetail = (id) => async (distpach, getState) => {
+export const getUserDetail = (id) => async (dispatch, getState) => {
   try {
-    distpach({
+    dispatch({
       type: USER_DETAIL_REQUEST,
     })
     const {
@@ -126,12 +126,12 @@ export const getUserDetail = (id) => async (distpach, getState) => {
       },
     }
     const { data } = await axios.get(`/api/users/${id}`, config)
-    distpach({
+    dispatch({
       type: USER_DETAIL_SUCCESS,
       payload: data,
     })
   } catch (error) {
-    distpach({
+    dispatch({
       type: USER_DETAIL_FAIL,
       payload:
         error.response && error.response.data.message
@@ -167,7 +167,7 @@ export const updateUserDetail = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_FAIL,
-      Payload:
+      payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
@@ -231,7 +231,7 @@ export const editUser = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_FAIL,
-      Payload:
+      payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
@@ -263,7 +263,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
-      Payload:
+      payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,

@@ -84,7 +84,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
-      Payload:
+      payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
@@ -117,7 +117,7 @@ export const createProduct = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
-      Payload:
+      payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
@@ -155,7 +155,7 @@ export const editProduct = (product) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
-      Payload:
+      payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
@@ -189,7 +189,7 @@ export const createProductReview =
     } catch (error) {
       dispatch({
         type: PRODUCT_CREATE_REVIEW_FAIL,
-        Payload:
+        payload:
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
