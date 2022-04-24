@@ -26,7 +26,7 @@ function Navbar() {
   return (
     <>
       <nav className='bg-gray-600 shadow-lg mb-4'>
-        <div className='sm:flex sm:justify-between items-center px-16 lg:px-32 py-2'>
+        <div className='sm:flex sm:justify-between items-center px-16 sm:px-24 lg:px-32 py-2'>
           <div className='flex justify-between items-center'>
             <div>
               <Link to='/'>
@@ -61,10 +61,11 @@ function Navbar() {
                   <ShoppingCartIcon className='h-6 w-6 text-white' />
                 </li>
               </Link>
+
               {/* User Navigation Dropdown */}
 
               {userInfo && !userInfo.isAdmin ? (
-                <div className='flex'>
+                <div className='flex '>
                   <div className='relative inline-block text-left'>
                     <Menu>
                       {({ open }) => (
@@ -102,7 +103,7 @@ function Navbar() {
                           >
                             <Menu.Items
                               static
-                              className='absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none'
+                              className='absolute left-0 w-48 mt-2 origin-top-left bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none'
                             >
                               <div className='px-4 py-3'>
                                 <p className='text-sm leading-5'>

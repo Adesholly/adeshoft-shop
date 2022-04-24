@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router"
 import { addToCart, removeFromCart } from "../actions/cartActions"
 import Message from "../components/Message"
 import { Link } from "react-router-dom"
-import { TrashIcon } from "@heroicons/react/solid"
 
 function CartScreen() {
   const location = useLocation()
@@ -69,10 +68,10 @@ function CartScreen() {
                     onChange={(e) =>
                       dispatch(addToCart(item.product, Number(e.target.value)))
                     }
-                    className='select-form border-gray-200  rounded focus:outline-none shadow-sm focus:border-gray-400 focus:ring-0 focus:ring-gray-500'
+                    className='border border-gray-200 p-1 rounded  focus:outline-none shadow-sm focus:border-gray-400 focus:ring-0 focus:ring-gray-500'
                   >
                     {[...Array(item.countInStock).keys()].map((x) => (
-                      <option key={x + 1} value={x + 1}>
+                      <option className='px-4' key={x + 1} value={x + 1}>
                         {x + 1}
                       </option>
                     ))}
@@ -81,7 +80,7 @@ function CartScreen() {
                     Price: ${(item.qty * item.price).toFixed(2)}
                   </div>
                   <button onClick={() => removeCartHandler(item.product)}>
-                    <TrashIcon className=' h-5 w-5' />
+                    <i className='fa-solid fa-trash'></i>
                   </button>
                 </div>
               ))}

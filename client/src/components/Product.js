@@ -3,6 +3,10 @@ import { Link } from "react-router-dom"
 import Rating from "./Rating"
 
 function Product({ product }) {
+  const addCartHandler = () => {
+    console.log("added")
+  }
+
   return (
     <div className='my-5 border shadow-lg rounded-md overflow-hidden'>
       <div>
@@ -21,8 +25,18 @@ function Product({ product }) {
             text={`(${product.numReviews} reviews)`}
           />
         </div>
-        <div className='mt-2 font-semibold text-xl tracking-widest'>
-          ${product.price}
+        <div className='flex justify-between'>
+          <div className='mt-2 font-semibold text-xl tracking-widest'>
+            ${product.price}
+          </div>
+
+          <button
+            className='rounded-[25%] bg-gray-500 shadow-lg hover:bg-gray-600 font-bold px-2 text-white'
+            onClick={addCartHandler}
+          >
+            <i class='fa-solid fa-cart-plus'></i>
+            <span>Add</span>
+          </button>
         </div>
       </div>
     </div>
