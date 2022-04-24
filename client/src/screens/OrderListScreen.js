@@ -50,7 +50,10 @@ function OrderListScreen() {
               </thead>
               <tbody className='bg-gray-50 divide-y-2 divide-gray-100  text-sm'>
                 {orders.map((order) => (
-                  <tr key={order._id}>
+                  <tr
+                    key={order._id}
+                    className='odd:bg-white hover:bg-gray-200 even:bg-gray-100'
+                  >
                     <td className='uppercase px-3 py-1 whitespace-nowrap'>
                       {order._id}
                     </td>

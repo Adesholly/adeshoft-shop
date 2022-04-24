@@ -55,7 +55,10 @@ function UserListScreen() {
             </thead>
             <tbody className='bg-gray-50 divide-y-2 divide-gray-100  text-sm'>
               {users.map((user) => (
-                <tr key={user._id}>
+                <tr
+                  key={user._id}
+                  className='odd:bg-white hover:bg-gray-200 even:bg-gray-100'
+                >
                   <td className='uppercase px-3 py-1 whitespace-nowrap'>
                     {user._id}
                   </td>
