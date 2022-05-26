@@ -6,6 +6,7 @@ import Loader from "../components/Loader"
 import Message from "../components/Message"
 import { useParams } from "react-router"
 import Pagination from "../components/Pagination"
+import HeroSlider from "../components/HeroSlider"
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ function HomeScreen() {
 
   return (
     <>
+      <HeroSlider />
       {loading ? (
         <Loader />
       ) : error ? (
